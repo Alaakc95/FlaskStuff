@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, render_template
 
 app = Flask(__name__)
 
@@ -34,18 +34,24 @@ app = Flask(__name__)
 #        return redirect(url_for('hello_guest', guest = name))
 
 ###### HTTP METHODS #####
-@app.route('/success/<name>')
-def success(name):
-    return 'welcome %s' %name
+#@app.route('/success/<name>')
+#def success(name):
+#    return 'welcome %s' %name
 
-@app.route('/login', methods = ['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        user = request.form['nm']
-        return redirect(url_for('success', name = user))
-    else:
-        user = request.args.get('nm')
-        return redirect(url_for('success', name = user))
+#@app.route('/login', methods = ['POST', 'GET'])
+#def login():
+#    if request.method == 'POST':
+#        user = request.form['nm']
+#        return redirect(url_for('success', name = user))
+#    else:
+#        user = request.args.get('nm')
+#        return redirect(url_for('success', name = user))
+
+####### Flask - Templates
+
+@app.route('/hello/<user>')
+def hello_name(user):
+    return render_template('hello.html', name = user)
 
 if __name__ == '__main__':
     app.run(debug = True)
